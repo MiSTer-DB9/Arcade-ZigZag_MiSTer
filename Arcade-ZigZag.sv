@@ -260,7 +260,7 @@ wire m_fire_2  = joy[4];
 
 wire m_start1 = joy[5];
 wire m_start2 = joy[6];
-wire m_coin   = m_start1 | m_start2;
+wire m_coin   = joy[7];
 
 wire hblank, vblank;
 wire ce_vid = clk_6;
