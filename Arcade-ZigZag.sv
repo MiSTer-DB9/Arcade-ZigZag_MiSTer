@@ -204,6 +204,7 @@ localparam CONF_STR = {
 	"H0OJK,Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
 	"H0O2,Orientation,Vert,Horz;",
 	"O35,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
+	"O6,Flip Video,Off,On;",
 	"-;",
 	"OA,Lives,3,4;",
 	"O89,Bonus Lives,1k/6k,2k/6k,3k/6k,4k/6k;",
@@ -359,7 +360,8 @@ galaxian galaxian
 	.dn_data(ioctl_dout),
 	.dn_wr(ioctl_wr),
 
-	.O_AUDIO(audio)
+	.O_AUDIO(audio),
+	.I_FLIP(status[6])
 );
 
 endmodule
