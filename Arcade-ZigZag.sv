@@ -28,7 +28,7 @@ module emu
 	input         RESET,
 
 	//Must be passed to hps_io module
-	inout  [48:0] HPS_BUS,
+	inout  [45:0] HPS_BUS,
 
 	//Base video clock. Usually equals to CLK_SYS.
 	output        CLK_VIDEO,
@@ -56,6 +56,8 @@ module emu
 	input  [11:0] HDMI_WIDTH,
 	input  [11:0] HDMI_HEIGHT,
 	output        HDMI_FREEZE,
+	output        HDMI_BLACKOUT,
+	output        HDMI_BOB_DEINT,
 
 `ifdef MISTER_FB
 	// Use framebuffer in DDRAM
@@ -180,6 +182,8 @@ module emu
 // [MiSTer-DB9 BEGIN] - DB9/SNAC8 support: USER_PP default (port_batch replaces with USER_PP_DRIVE)
 assign USER_PP = USER_PP_DRIVE;
 // [MiSTer-DB9 END]
+assign HDMI_BLACKOUT = 0;
+assign HDMI_BOB_DEINT = 0;
 assign VGA_F1    = 0;
 assign VGA_SCALER= 0;
 assign VGA_DISABLE = 0;
@@ -289,6 +293,7 @@ localparam CONF_STR = {
 	"H0OJK,Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
 	"H0O2,Orientation,Vert,Horz;",
 	"O35,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
+	"O6,Flip Video,Off,On;",
 	"-;",
 		// [MiSTer-DB9-Pro BEGIN] - Saturn-first joy_type (canonical bit notation)
 	"O[127:126],UserIO Joystick,Off,Saturn,DB9MD,DB15;",
@@ -471,7 +476,8 @@ galaxian galaxian
 	.dn_data(ioctl_dout),
 	.dn_wr(ioctl_wr),
 
-	.O_AUDIO(audio)
+	.O_AUDIO(audio),
+	.I_FLIP(status[6])
 );
 
 endmodule

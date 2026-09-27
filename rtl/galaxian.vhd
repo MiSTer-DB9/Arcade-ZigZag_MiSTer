@@ -58,7 +58,8 @@ entity galaxian is
 		W_H_SYNC   : out std_logic;
 		W_V_SYNC   : out std_logic;
 
-		O_AUDIO    : out std_logic_vector(9 downto 0)
+		O_AUDIO    : out std_logic_vector(9 downto 0);
+		I_FLIP     : in  std_logic
 	);
 end;
 
@@ -152,8 +153,8 @@ begin
 		I_CLK_6M      => W_CLK_6M,
 		I_H_CNT       => W_H_CNT,
 		I_V_CNT       => W_V_CNT,
-		I_H_FLIP      => W_H_FLIP,
-		I_V_FLIP      => W_V_FLIP,
+		I_H_FLIP      => W_H_FLIP or I_FLIP,
+		I_V_FLIP      => W_V_FLIP or I_FLIP,
 		I_V_BLn       => W_V_BLn,
 		I_C_BLn       => W_C_BLn,
 		I_H_BLn       => W_H_BLn,
